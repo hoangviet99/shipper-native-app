@@ -1,0 +1,17 @@
+{
+  "name": "shipper",
+  "displayName": "Shipper",
+  "expo": {
+    "name": "shipper",
+    "slug": "shipper",
+    "splash": {
+      "image": "./src/assets/images/dev_ship.png",
+      "resizeMode": "cover"
+    },
+    "android": {
+      "versionCode": 2,
+      "package": "com.shipping.dev",
+      "googleServicesFile": "./src/assets/firebase/google-services.json"
+    }
+  }
+}

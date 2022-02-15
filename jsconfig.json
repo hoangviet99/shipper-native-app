@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "esnext",
+    "baseUrl": ".",
+    "jsx": "react-native",
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}

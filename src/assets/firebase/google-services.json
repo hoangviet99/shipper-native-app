@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1063362975343",
+    "project_id": "devshipping-deb88",
+    "storage_bucket": "devshipping-deb88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1063362975343:android:3938e5a2a7b3006ef7df9a",
+        "android_client_info": {
+          "package_name": "com.shipping.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1063362975343-rkq9n9e9qck6egim36c95hids5qbdina.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk2z8LnpNpTpoKm7gIzUXXAmq_OMBkTHo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1063362975343-rkq9n9e9qck6egim36c95hids5qbdina.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
