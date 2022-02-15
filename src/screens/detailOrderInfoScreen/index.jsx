@@ -5,8 +5,6 @@ import { ScrollView, Linking } from "react-native";
 import { addOrderInfo } from "@/services/addOrderInfo";
 import { useRoute, useNavigation } from "@react-navigation/core";
 import { useSelector, useDispatch } from "react-redux";
-import { SCREENS_NAME } from '@/constants/screen';
-import { listOrderActions } from '@/store/listOrderReducer';
 
 // chi tiết đơn hàng
 function DetailOrderInfoScreen() {
@@ -18,6 +16,8 @@ function DetailOrderInfoScreen() {
   const route = useRoute();
   const dispatch = useDispatch();
   const navigation = useNavigation();
+
+  const [isDisableAddInButton, setIsDisableAddInButton] = useState(false);
 
   const { orderInfo } = route?.params;
 
@@ -37,6 +37,8 @@ function DetailOrderInfoScreen() {
           placement: "top",
           isClosable: true,
         });
+
+        setIsDisableAddInButton(true);
 
         setTimeout(() => {
           navigation.goBack();
@@ -118,6 +120,7 @@ function DetailOrderInfoScreen() {
             <Pressable
               style={styles.btnInner1}
               onPress={() => handleAddInClick(orderInfo?.Ma)}
+              disabled={isDisableAddInButton}
             >
               <Box style={styles.btnTextTitle}>
                 <Text style={styles.btnTextTitleInner}>{"THÊM VÀO"}</Text>
@@ -125,7 +128,7 @@ function DetailOrderInfoScreen() {
             </Pressable>
             <Pressable
               style={styles.btnInner2}
-              onPress={() => handleAddInClick(null)}
+              onPress={() => console.log("Do nothing!")}
             >
               <Box style={styles.btnTextTitle}>
                 <Text style={styles.btnTextTitleInner}>{""}</Text>

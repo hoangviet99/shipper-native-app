@@ -5,5 +5,7 @@ The official NativeBase template for [Expo](https://docs.expo.io/)
 ## Usage
 
 ```sh
-expo init my-app --template expo-template-native-base
+npm install
+expo install expo-barcode-scanner
+expo start
 ```
