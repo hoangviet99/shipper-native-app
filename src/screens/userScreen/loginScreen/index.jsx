@@ -1,12 +1,12 @@
-import React, { useMemo } from 'react';
-import { Box, useToast, Input, Button } from 'native-base';
-import { login } from '@/services/User/login';
-import { useForm, Controller } from 'react-hook-form';
-import { createStyle } from './style';
-import { SCREENS_NAME } from '@/constants/screen';
-import { useNavigation } from '@react-navigation/native';
-import { userAccountActions } from '@/store/userReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useMemo } from "react";
+import { Box, useToast, Input, Button } from "native-base";
+import { login } from "@/services/User/login";
+import { useForm, Controller } from "react-hook-form";
+import { createStyle } from "./style";
+import { SCREENS_NAME } from "@/constants/screen";
+import { useNavigation } from "@react-navigation/native";
+import { userAccountActions } from "@/store/userReducer";
+import { useDispatch, useSelector } from "react-redux";
 
 const LoginScreen = () => {
   const styles = useMemo(() => {
@@ -23,32 +23,35 @@ const LoginScreen = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      userName: '',
-      password: '',
+      userName: "",
+      password: "",
     },
   });
 
   const onSubmit = (data) => {
-    login({
-      userName: data.userName,
-      password: data.password,
-    })
-      .then((res) => {
-        if (res?.data?.result !== 'OK') {
-          toast.show({
-            description: 'Đã có lỗi xảy ra !',
-            status: 'error',
-            placement: 'top',
-            isClosable: true,
-          });
-          return;
-        }
+    // login({
+    //   userName: data.userName,
+    //   password: data.password,
+    // })
+    //   .then((res) => {
+    //     if (res?.data?.result !== 'OK') {
+    //       toast.show({
+    //         description: 'Đã có lỗi xảy ra !',
+    //         status: 'error',
+    //         placement: 'top',
+    //         isClosable: true,
+    //       });
+    //       return;
+    //     }
 
-        dispatch(userAccountActions.setIsLogin(true));
-        dispatch(userAccountActions.setCode(res?.data?.code));
-        navigation.replace(SCREENS_NAME.LIST_ORDER);
-      })
-      .catch((err) => console.log(err));
+    //     dispatch(userAccountActions.setIsLogin(true));
+    //     dispatch(userAccountActions.setCode(res?.data?.code));
+    //     navigation.replace(SCREENS_NAME.LIST_ORDER);
+    //   })
+    //   .catch((err) => console.log(err));
+    dispatch(userAccountActions.setIsLogin(true));
+    dispatch(userAccountActions.setCode('LWSYPS6WQLQBFJL'));
+    navigation.replace(SCREENS_NAME.LIST_ORDER);
   };
 
   return (

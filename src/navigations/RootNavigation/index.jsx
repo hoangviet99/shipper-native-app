@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Pressable } from "native-base";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { colorPalletter } from "@/assets/theme/color";
 import { userAccountActions } from "@/store/userReducer";
 
@@ -27,30 +28,32 @@ const RootNavigation = () => {
 
   const handleLogout = () => {
     dispatch(userAccountActions.setCode(undefined));
+    alert('Log out');
   };
 
   return (
     <NavigationContainer>
       <Host>
         <RootStack.Navigator
-          // screenOptions={() => ({
-          //   headerRight: () => {
-          //     return (
-          //       <Pressable
-          //         style={{
-          //           paddingHorizontal: 12,
-          //         }}
-          //         onPress={() => handleLogout()}
-          //       >
-          //         <FontAwesomeIcon
-          //           icon={faSignOutAlt}
-          //           color={colorPalletter.lime[600]}
-          //           size={24}
-          //         />
-          //       </Pressable>
-          //     );
-          //   },
-          // })}
+          screenOptions={() => ({
+            headerRight: () => {
+              return (
+                <Pressable
+                  style={{
+                    paddingHorizontal: 12,
+                  }}
+                  onPress={() => handleLogout()}
+                >
+                  {/* <FontAwesomeIcon
+                    icon={faSignOutAlt}
+                    color={colorPalletter.lime[600]}
+                    size={24}
+                  /> */}
+                  <Ionicons name="reorder-four-outline" color={colorPalletter.lime[600]} size={24} />
+                </Pressable>
+              );
+            },
+          })}
           initialRouteName={
             codeLogin ? SCREENS_NAME.LIST_ORDER : SCREENS_NAME.LOGIN
           }

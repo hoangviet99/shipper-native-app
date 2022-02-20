@@ -5,6 +5,7 @@ import { ScrollView, Linking } from "react-native";
 import { addOrderInfo } from "@/services/addOrderInfo";
 import { useRoute, useNavigation } from "@react-navigation/core";
 import { useSelector, useDispatch } from "react-redux";
+import { listOrderActions } from "@/store/listOrderReducer";
 
 // chi tiết đơn hàng
 function DetailOrderInfoScreen() {
@@ -42,6 +43,7 @@ function DetailOrderInfoScreen() {
 
         setTimeout(() => {
           navigation.goBack();
+          dispatch(listOrderActions.setIsReloadGettingDataCG(true));
         }, 2000);
       })
       .catch((err) => {

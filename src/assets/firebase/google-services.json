@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1063362975343",
-    "project_id": "devshipping-deb88",
-    "storage_bucket": "devshipping-deb88.appspot.com"
+    "project_number": "98713104854",
+    "project_id": "shipdev-4ef60",
+    "storage_bucket": "shipdev-4ef60.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1063362975343:android:3938e5a2a7b3006ef7df9a",
+        "mobilesdk_app_id": "1:98713104854:android:08eba02bce3c3830cff477",
         "android_client_info": {
-          "package_name": "com.shipping.dev"
+          "package_name": "com.phv.devship"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1063362975343-rkq9n9e9qck6egim36c95hids5qbdina.apps.googleusercontent.com",
+          "client_id": "98713104854-2vge867kffjs2rpq9hnhpuulco7sam42.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDk2z8LnpNpTpoKm7gIzUXXAmq_OMBkTHo"
+          "current_key": "AIzaSyCnRGz4VoGNzPCMza3Go5xm24N1xCL2-fQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1063362975343-rkq9n9e9qck6egim36c95hids5qbdina.apps.googleusercontent.com",
+              "client_id": "98713104854-2vge867kffjs2rpq9hnhpuulco7sam42.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
