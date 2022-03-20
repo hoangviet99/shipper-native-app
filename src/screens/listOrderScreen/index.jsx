@@ -8,7 +8,12 @@ import { NavigationContainer } from "@react-navigation/native";
 
 const ListOrderDetailScreen = () => {
   const inset = useSafeAreaInsets();
-  return <HomeNavigator />;
+
+  return (
+    <>
+      <HomeNavigator />
+    </>
+  );
 };
 
 export default ListOrderDetailScreen;

@@ -4,9 +4,10 @@ import { login } from "@/services/User/login";
 import { useForm, Controller } from "react-hook-form";
 import { createStyle } from "./style";
 import { SCREENS_NAME } from "@/constants/screen";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect  } from "@react-navigation/native";
 import { userAccountActions } from "@/store/userReducer";
 import { useDispatch, useSelector } from "react-redux";
+import { BackHandler } from 'react-native';
 
 const LoginScreen = () => {
   const styles = useMemo(() => {
@@ -29,30 +30,43 @@ const LoginScreen = () => {
   });
 
   const onSubmit = (data) => {
-    // login({
-    //   userName: data.userName,
-    //   password: data.password,
-    // })
-    //   .then((res) => {
-    //     if (res?.data?.result !== 'OK') {
-    //       toast.show({
-    //         description: 'Đã có lỗi xảy ra !',
-    //         status: 'error',
-    //         placement: 'top',
-    //         isClosable: true,
-    //       });
-    //       return;
-    //     }
+    login({
+      userName: data.userName,
+      password: data.password,
+    })
+      .then((res) => {
+        if (res?.data?.result !== 'OK') {
+          toast.show({
+            description: 'Đã có lỗi xảy ra !',
+            status: 'error',
+            placement: 'top',
+            isClosable: true,
+          });
+          return;
+        }
 
-    //     dispatch(userAccountActions.setIsLogin(true));
-    //     dispatch(userAccountActions.setCode(res?.data?.code));
-    //     navigation.replace(SCREENS_NAME.LIST_ORDER);
-    //   })
-    //   .catch((err) => console.log(err));
-    dispatch(userAccountActions.setIsLogin(true));
-    dispatch(userAccountActions.setCode('LWSYPS6WQLQBFJL'));
-    navigation.replace(SCREENS_NAME.LIST_ORDER);
+        dispatch(userAccountActions.setIsLogin(true));
+        dispatch(userAccountActions.setCode(res?.data?.code));
+        navigation.replace(SCREENS_NAME.LIST_ORDER);
+      })
+      .catch((err) => console.log(err));
+    // dispatch(userAccountActions.setIsLogin(true));
+    // dispatch(userAccountActions.setCode('LWSYPS6WQLQBFJL'));
+    // navigation.replace(SCREENS_NAME.LIST_ORDER);
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, []),
+  );
 
   return (
     <Box style={styles.container}>

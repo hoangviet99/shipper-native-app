@@ -37,7 +37,7 @@ export function createStyles() {
     btnIncrease : {
       width: 0.13*WINDOW_WIDTH,
       height: 0.13*WINDOW_WIDTH,
-      backgroundColor: colorPalletter.green[400],
+      backgroundColor: colorPalletter.green[500],
       borderColor: colorPalletter.gray[500],
       borderWidth: 1,
       marginLeft: 4,
@@ -47,7 +47,7 @@ export function createStyles() {
     btnText : {
       width: 0.13*WINDOW_WIDTH,
       height: 0.13*WINDOW_WIDTH,
-      fontSize: 16,
+      fontSize: 18,
       color: 'white',
       textAlign: 'center',
       textAlignVertical: 'center',

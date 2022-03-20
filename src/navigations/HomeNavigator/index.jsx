@@ -5,15 +5,13 @@ import WaitForItTab from "@/screens/listOrderScreen/waitForItTab";
 import WaitForDeliveryTab from "@/screens/listOrderScreen/waitForDeliveryTab";
 import DeliveredTab from "@/screens/listOrderScreen/deliveredTab";
 import ReturnGoodTab from "@/screens/listOrderScreen/returnsGoodTab";
-import BarcodeScanTab from "@/screens/listOrderScreen/barcodeScanTab";
-import GiveMoneyBackTab from "@/screens/listOrderScreen/giveMoneyBackTab";
 import { Box } from "native-base";
 import { colorPalletter } from "@/assets/theme/color";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { NavigationContainer } from "@react-navigation/native";
 import { color } from "styled-system";
 
-const Tab1 = createMaterialTopTabNavigator();
+const TabTop = createMaterialTopTabNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const HomeNavigator = () => {
@@ -71,8 +69,6 @@ const HomeNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen name="Quét mã" component={BarcodeScanTab} />
-      <Tab.Screen name="Nộp tiền" component={GiveMoneyBackTab} />
     </Tab.Navigator>
   );
 };

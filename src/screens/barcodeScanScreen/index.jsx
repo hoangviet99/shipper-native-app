@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Text, View } from "native-base";
+import React, { useState, useEffect, useMemo } from "react";
+import { Text, View, Box } from "native-base";
 import { StyleSheet } from "react-native";
 import { SCREENS_NAME } from "@/constants/screen";
 import { useNavigation } from "@react-navigation/native";
@@ -7,8 +7,13 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { getOrderInfoById } from "@/services/getOrderInfoById";
 import { useSelector, useDispatch } from "react-redux";
 import { orderInfoActions } from "@/store/orderInfoReducer/index";
+import { createStyles } from './style';
 
-const BarcodeScanTab = () => {
+const BarcodeScanScreen = () => {
+  const styles = useMemo(() => {
+    return createStyles();
+  }, []);
+
   const [hasPermission, setHasPermission] = useState(null);
   const code = useSelector((state) => state.userAccount.code);
   const navigation = useNavigation();
@@ -22,15 +27,16 @@ const BarcodeScanTab = () => {
   }, []);
 
   const handleBarCodeScanned = ({ type, data }) => {
-    if (type == "1") { // If type is CODE_128
+    if (type == "1") {
+      // If type is CODE_128
       getOrderInfoById({ order: data, code: code }).then((res) => {
         if (res.ok) {
           navigation.navigate({
             name: SCREENS_NAME.DETAIL_ORDER_INFO,
             params: {
               orderInfo: res.data,
-            }
-          })
+            },
+          });
           dispatch(orderInfoActions.setResponseData(res.data));
         }
       });
@@ -45,14 +51,16 @@ const BarcodeScanTab = () => {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <BarCodeScanner
-        onBarCodeScanned={handleBarCodeScanned}
-        barCodeTypes={[BarCodeScanner.Constants.BarCodeType.code128]}
-        style={{ ...StyleSheet.absoluteFillObject }}
-      />
-    </View>
+    <Box style={styles.container}>
+      <View style={{ flex: 1 }}>
+        <BarCodeScanner
+          onBarCodeScanned={handleBarCodeScanned}
+          barCodeTypes={[BarCodeScanner.Constants.BarCodeType.code128]}
+          style={{ ...StyleSheet.absoluteFillObject }}
+        />
+      </View>
+    </Box>
   );
 };
 
-export default BarcodeScanTab;
+export default BarcodeScanScreen;

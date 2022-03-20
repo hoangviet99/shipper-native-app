@@ -9,7 +9,7 @@
       "resizeMode": "cover"
     },
     "android": {
-      "versionCode": 4,
+      "versionCode": 5,
       "package": "com.phv.devship",
       "googleServicesFile": "./src/assets/firebase/google-services.json"
     }

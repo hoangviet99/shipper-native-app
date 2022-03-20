@@ -19,7 +19,7 @@ const Banknote = ({
     <Box style={styles.container}>
       <Text style={styles.txtBanknote}>{getCurrencyString(curencyValue)} VNĐ</Text>
       <Pressable style={styles.btnDecrease} onPress={() => btnDecsHandle()}>
-        <Text style={styles.btnText}>{"--"}</Text>
+        <Text style={styles.btnText}>{"—"}</Text>
       </Pressable>
       <Text style={styles.txtAmount}>{amount}</Text>
       <Pressable style={styles.btnIncrease} onPress={() => btnIncsHandle()}>

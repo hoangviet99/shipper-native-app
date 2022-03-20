@@ -7,5 +7,9 @@ export const SCREENS_NAME = {
   DETAIL_WAITING_DELIVEY: 'Chi tiết đơn hàng chờ giao',
   DETAIL_DELIVERD: 'Chi tiết đơn hàng đã giao',
   LOGIN: 'Đăng nhập',
-  BARCODE_SCAN: 'Quét mã vạch',
+  BARCODE_SCAN: 'Quét mã',
+  END_TRIP: 'Nộp tiền',
+  STATISTIC: 'Thống kê',
+  PRODUCTIVITY: 'Năng suất',
+  TRIP_INFO: 'Chuyến đi',
 };

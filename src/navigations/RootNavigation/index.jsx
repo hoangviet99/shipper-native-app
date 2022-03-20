@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { SCREENS_NAME } from "@/constants/screen";
@@ -9,6 +9,11 @@ import DetailOrderInfoScreen from "@/screens/detailOrderInfoScreen";
 import DetailWaitingForItScreen from "@/screens/detailWaitingForItScreen";
 import DetailOrderWaitingDeliveryScreen from "@/screens/detailOrderWatingDeliverySceen";
 import DetailOrderDeliverdScreen from "@/screens/detailOrderDeliveredScreen";
+import BarcodeScanScreen from "@/screens/barcodeScanScreen";
+import EndTripScreen from "@/screens/endTripScreen";
+import StatisticScreen from "@/screens/statisticScreen/index";
+import ProductivityScreen from "@/screens/productivityScreen/index";
+import TripInfoScreen from "@/screens/tripInfoScreen/index";
 import LoginScreen from "@/screens/userScreen/loginScreen";
 import { Host } from "react-native-portalize";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,21 +23,43 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { colorPalletter } from "@/assets/theme/color";
 import { userAccountActions } from "@/store/userReducer";
+import {
+  useNavigation,
+  createNavigationContainerRef,
+} from "@react-navigation/native";
+import { Modal } from "react-native";
+import PopupMenu from "@/components/PopupMenu";
 
 const RootStack = createStackNavigator();
 
 const RootNavigation = () => {
   const codeLogin = useSelector((state) => state.userAccount.code);
-
+  const navigationRef = createNavigationContainerRef();
+  // const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const handleLogout = () => {
-    dispatch(userAccountActions.setCode(undefined));
-    alert('Log out');
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const handleMenuPress = () => {
+    setModalVisible(true);
   };
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <PopupMenu
+          closePopupFunc={() => setModalVisible(!modalVisible)}
+          code={codeLogin}
+        ></PopupMenu>
+      </Modal>
       <Host>
         <RootStack.Navigator
           screenOptions={() => ({
@@ -42,17 +69,22 @@ const RootNavigation = () => {
                   style={{
                     paddingHorizontal: 12,
                   }}
-                  onPress={() => handleLogout()}
+                  onPress={() => handleMenuPress()}
                 >
                   {/* <FontAwesomeIcon
                     icon={faSignOutAlt}
                     color={colorPalletter.lime[600]}
                     size={24}
                   /> */}
-                  <Ionicons name="reorder-four-outline" color={colorPalletter.lime[600]} size={24} />
+                  <Ionicons
+                    name="reorder-four-outline"
+                    color={colorPalletter.lime[600]}
+                    size={24}
+                  />
                 </Pressable>
               );
             },
+            headerLeft: () => null,
           })}
           initialRouteName={
             codeLogin ? SCREENS_NAME.LIST_ORDER : SCREENS_NAME.LOGIN
@@ -96,6 +128,31 @@ const RootNavigation = () => {
           <RootStack.Screen
             name={SCREENS_NAME.DETAIL_ORDER_INFO}
             component={DetailOrderInfoScreen}
+          ></RootStack.Screen>
+
+          <RootStack.Screen
+            name={SCREENS_NAME.BARCODE_SCAN}
+            component={BarcodeScanScreen}
+          ></RootStack.Screen>
+
+          <RootStack.Screen
+            name={SCREENS_NAME.END_TRIP}
+            component={EndTripScreen}
+          ></RootStack.Screen>
+
+          <RootStack.Screen
+            name={SCREENS_NAME.STATISTIC}
+            component={StatisticScreen}
+          ></RootStack.Screen>
+
+          <RootStack.Screen
+            name={SCREENS_NAME.PRODUCTIVITY}
+            component={ProductivityScreen}
+          ></RootStack.Screen>
+
+          <RootStack.Screen
+            name={SCREENS_NAME.TRIP_INFO}
+            component={TripInfoScreen}
           ></RootStack.Screen>
         </RootStack.Navigator>
       </Host>

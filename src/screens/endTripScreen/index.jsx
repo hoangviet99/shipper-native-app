@@ -1,10 +1,15 @@
 import React, { useMemo, useState, useEffect } from "react";
 import { createStyles } from "./style";
 import { ScrollView, View, Text, Pressable } from "react-native";
+import { useToast } from "native-base";
 import Banknote from "@/components/Banknote/index";
 import { getCurrencyString } from "@/helper/formater";
+import { endTrip } from "@/services/endTrip/index";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
+import { SCREENS_NAME } from "@/constants/screen";
 
-function GiveMoneyBackTab() {
+function EndTripScreen() {
   const styles = useMemo(() => {
     return createStyles();
   }, []);
@@ -21,10 +26,17 @@ function GiveMoneyBackTab() {
     { curencyValue: 1000, amount: 0 },
   ]);
 
+  const code = useSelector((state) => state.userAccount.code);
+
   const [totalMoney, setTotalMoney] = useState(() => 0);
+  const [isDisableSubmitButton, setIsDisableSubmitButton] = useState(
+    () => false
+  );
 
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
+  const toast = useToast();
+  const navigation = useNavigation();
 
   const btnPressHandle = (type, index) => {
     let newData = [];
@@ -59,6 +71,36 @@ function GiveMoneyBackTab() {
     return total;
   };
 
+  const handleSubmitButtonPressed = () => {
+    if(isDisableSubmitButton) return;
+
+    setIsDisableSubmitButton(true);
+    const filterData = data
+      .filter((item) => item.amount > 0)
+      .map((item) => `${item.curencyValue / 1000}-${item.amount}`);
+    let moneyStr = filterData.join("_");
+    console.log(moneyStr + " --- " + code);
+    endTrip({ moneyStr: moneyStr, code: code }).then((res) => {
+      toast.show({
+        baseStyle: {
+          display: "flex",
+          flexWrap: "wrap",
+          fontSize: 11,
+        },
+        title: res?.data?.result === "OK" ? "Thêm thành công" : "Thêm thất bại",
+        status: res?.data?.result === "OK" ? "success" : "error",
+        placement: "top",
+        isClosable: true,
+      });
+
+      if(res.ok && res?.data?.result === "OK") {
+        setTimeout(() => {
+          navigation.navigate('Chờ giao');
+        }, 1300);
+      }
+    });
+  };
+
   return (
     <>
       <ScrollView style={styles.container}>
@@ -75,14 +117,18 @@ function GiveMoneyBackTab() {
         })}
       </ScrollView>
       <View style={styles.footerView}>
-        <Text style={styles.footerText}>{getCurrencyString(totalMoney)}đ</Text>
+        <Text style={styles.footerText}>
+          {totalMoney > 0
+            ? `Tổng: ${getCurrencyString(totalMoney)}đ`
+            : "Chưa chọn tiền"}
+        </Text>
         <Pressable
           disabled={totalMoney === 0}
-          onPress={() => alert(totalMoney)}
+          onPress={() => handleSubmitButtonPressed()}
         >
           <Text
             style={
-              totalMoney === 0
+              totalMoney === 0 || isDisableSubmitButton
                 ? styles.submitButtonDisable
                 : styles.submitButton
             }
@@ -95,4 +141,4 @@ function GiveMoneyBackTab() {
   );
 }
 
-export default GiveMoneyBackTab;
+export default EndTripScreen;

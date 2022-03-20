@@ -39,7 +39,7 @@ export function createStyles() {
       color: 'white',
       borderWidth: 1,
       borderColor: colorPalletter.gray[500],
-      backgroundColor: colorPalletter.green[400],
+      backgroundColor: colorPalletter.lime[600],
     },
     submitButtonDisable: {
       width: WINDOW_WIDTH*0.5,
