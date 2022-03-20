@@ -48,7 +48,7 @@ function SuccessInfoScreen() {
       <View style={styles.headerContainer}>
         <View style={styles.headerLeft}>
           <Text style={styles.headerText}>TỈ LỆ THÀNH CÔNG </Text>
-          <Pressable onPress={() => alert('Cho biết tỉ lệ thành công của các chuyến giao hàng')}>
+          <Pressable onPress={() => alert('Cho biết tỉ lệ thành công của các chuyến giao hàng.')}>
             <Ionicons
               name={"information-circle-outline"}
               color={"red"}
