@@ -14,7 +14,7 @@ export default StatisticCardView = ({
   iconName = "airplane",
   value = "3/3",
   unit = "đơn",
-  navToPage = SCREENS_NAME.END_TRIP,
+  navToPage = null,
 }) => {
   const styles = useMemo(() => {
     return createStyles();
@@ -24,7 +24,13 @@ export default StatisticCardView = ({
 
   return (
     <>
-      <Pressable onPress={() => navigation.navigate(navToPage)}>
+      <Pressable
+        onPress={() => {
+          if (navToPage) {
+            navigation.navigate(navToPage);
+          }
+        }}
+      >
         <View style={styles.box}>
           <View style={styles.boxTitle}>
             <Text style={styles.textTitle}>{title}</Text>

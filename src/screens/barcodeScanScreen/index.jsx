@@ -7,7 +7,8 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { getOrderInfoById } from "@/services/getOrderInfoById";
 import { useSelector, useDispatch } from "react-redux";
 import { orderInfoActions } from "@/store/orderInfoReducer/index";
-import { createStyles } from './style';
+import { createStyles } from "./style";
+import { useToast } from "native-base";
 
 const BarcodeScanScreen = () => {
   const styles = useMemo(() => {
@@ -15,6 +16,8 @@ const BarcodeScanScreen = () => {
   }, []);
 
   const [hasPermission, setHasPermission] = useState(null);
+  const [counter, setCounter] = useState(0);
+  const toast = useToast();
   const code = useSelector((state) => state.userAccount.code);
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -38,6 +41,24 @@ const BarcodeScanScreen = () => {
             },
           });
           dispatch(orderInfoActions.setResponseData(res.data));
+        } else {
+          console.log(counter);
+          if (counter > 10) {
+            setCounter(0);
+            toast.show({
+              baseStyle: {
+                display: "flex",
+                flexWrap: "wrap",
+                fontSize: 11,
+              },
+              title: res.status,
+              status: "error",
+              placement: "top",
+              isClosable: true,
+            });
+          } else {
+            setCounter(counter + 1);
+          }
         }
       });
     }

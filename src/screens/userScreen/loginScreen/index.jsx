@@ -4,10 +4,10 @@ import { login } from "@/services/User/login";
 import { useForm, Controller } from "react-hook-form";
 import { createStyle } from "./style";
 import { SCREENS_NAME } from "@/constants/screen";
-import { useNavigation, useFocusEffect  } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { userAccountActions } from "@/store/userReducer";
 import { useDispatch, useSelector } from "react-redux";
-import { BackHandler } from 'react-native';
+import { BackHandler } from "react-native";
 
 const LoginScreen = () => {
   const styles = useMemo(() => {
@@ -35,11 +35,11 @@ const LoginScreen = () => {
       password: data.password,
     })
       .then((res) => {
-        if (res?.data?.result !== 'OK') {
+        if (res?.data?.result !== "OK") {
           toast.show({
-            description: 'Đã có lỗi xảy ra !',
-            status: 'error',
-            placement: 'top',
+            description: "Đã có lỗi xảy ra !",
+            status: "error",
+            placement: "top",
             isClosable: true,
           });
           return;
@@ -50,9 +50,6 @@ const LoginScreen = () => {
         navigation.replace(SCREENS_NAME.LIST_ORDER);
       })
       .catch((err) => console.log(err));
-    // dispatch(userAccountActions.setIsLogin(true));
-    // dispatch(userAccountActions.setCode('LWSYPS6WQLQBFJL'));
-    // navigation.replace(SCREENS_NAME.LIST_ORDER);
   };
 
   useFocusEffect(
@@ -61,11 +58,11 @@ const LoginScreen = () => {
         return true;
       };
 
-      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+      BackHandler.addEventListener("hardwareBackPress", onBackPress);
 
       return () =>
-        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
-    }, []),
+        BackHandler.removeEventListener("hardwareBackPress", onBackPress);
+    }, [])
   );
 
   return (
@@ -94,11 +91,12 @@ const LoginScreen = () => {
             size="sm"
             placeholder="Mật khẩu"
             style={styles.input}
+            secureTextEntry={true}
           />
         )}
       />
 
-      <Button onPress={handleSubmit(onSubmit)}>Đăng nhập</Button>
+      <Button style={styles.btnSubmit} onPress={handleSubmit(onSubmit)}>Đăng nhập</Button>
     </Box>
   );
 };

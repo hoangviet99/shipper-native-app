@@ -14,7 +14,7 @@ import ProgressCircle from "react-native-progress-circle";
 export default StatisticCardView = ({
   title = "Lấy hàng",
   value = 15,
-  max = 18,
+  percent = 99,
   color = "blue",
 }) => {
   const styles = useMemo(() => {
@@ -23,8 +23,6 @@ export default StatisticCardView = ({
 
   const navigation = useNavigation();
   const WINDOW_WIDTH = Dimensions.get("window").width;
-
-  let percent = max === 0 ? 0 : (value / max) * 100;
 
   return (
     <>
@@ -47,7 +45,7 @@ export default StatisticCardView = ({
           <View style={styles.boxFooter}>
             <Text style={styles.textTitle}>{title}</Text>
             <Text style={styles.textValue}>
-              {value}/{max}
+              {value}
             </Text>
           </View>
         </View>

@@ -10,6 +10,6 @@ export const SCREENS_NAME = {
   BARCODE_SCAN: 'Quét mã',
   END_TRIP: 'Nộp tiền',
   STATISTIC: 'Thống kê',
-  PRODUCTIVITY: 'Năng suất',
+  SUCCESS_INFO: 'Năng suất',
   TRIP_INFO: 'Chuyến đi',
 };

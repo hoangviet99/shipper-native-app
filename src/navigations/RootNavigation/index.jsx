@@ -12,7 +12,7 @@ import DetailOrderDeliverdScreen from "@/screens/detailOrderDeliveredScreen";
 import BarcodeScanScreen from "@/screens/barcodeScanScreen";
 import EndTripScreen from "@/screens/endTripScreen";
 import StatisticScreen from "@/screens/statisticScreen/index";
-import ProductivityScreen from "@/screens/productivityScreen/index";
+import SuccessInfoScreen from "@/screens/successInfoScreen/index";
 import TripInfoScreen from "@/screens/tripInfoScreen/index";
 import LoginScreen from "@/screens/userScreen/loginScreen";
 import { Host } from "react-native-portalize";
@@ -146,8 +146,8 @@ const RootNavigation = () => {
           ></RootStack.Screen>
 
           <RootStack.Screen
-            name={SCREENS_NAME.PRODUCTIVITY}
-            component={ProductivityScreen}
+            name={SCREENS_NAME.SUCCESS_INFO}
+            component={SuccessInfoScreen}
           ></RootStack.Screen>
 
           <RootStack.Screen

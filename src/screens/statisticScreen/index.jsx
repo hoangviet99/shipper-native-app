@@ -10,7 +10,11 @@ import {
 import { useToast } from "native-base";
 import Banknote from "@/components/Banknote/index";
 import { getCurrencyString } from "@/helper/formater";
-import { endTrip } from "@/services/endTrip/index";
+import {
+  statisticQuickInfo,
+  statisticSuccessInfo,
+  statisticTripInfo,
+} from "@/services/statistic/index";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 import { SCREENS_NAME } from "@/constants/screen";
@@ -23,6 +27,17 @@ const StatisticScreen = () => {
   }, []);
 
   const image = require("@/assets/images/imgBackground1.png");
+  const code = useSelector((state) => state.userAccount.code);
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    statisticQuickInfo(code).then((res) => {
+      if (res.ok) {
+        setData(res.data?.List);
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -35,24 +50,24 @@ const StatisticScreen = () => {
             imageStyle={styles.parentBoxBackground}
           >
             <StatisticCardView
-              title="Chuyến đi"
+              title={data[0]?.Name}
               iconName="today"
-              value="3/3"
+              value={data[0]?.Value}
               unit="đơn"
               navToPage={SCREENS_NAME.TRIP_INFO}
             ></StatisticCardView>
             <StatisticCardView
-              title="Năng suất"
+              title={data[1]?.Name}
               iconName="podium"
-              value="76.9"
+              value={data[1]?.Value}
               unit="%"
-              navToPage={SCREENS_NAME.PRODUCTIVITY}
+              navToPage={SCREENS_NAME.SUCCESS_INFO}
               isCenter={true}
             ></StatisticCardView>
             <StatisticCardView
-              title="Thu nhập"
+              title={data[2]?.Name}
               iconName="wallet"
-              value="492.001"
+              value={data[2]?.Value}
               unit="VND"
             ></StatisticCardView>
           </ImageBackground>
