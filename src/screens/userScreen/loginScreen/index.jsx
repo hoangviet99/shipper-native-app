@@ -96,7 +96,9 @@ const LoginScreen = () => {
         )}
       />
 
-      <Button style={styles.btnSubmit} onPress={handleSubmit(onSubmit)}>Đăng nhập</Button>
+      <Button style={styles.btnSubmit} onPress={handleSubmit(onSubmit)}>
+        Đăng nhập
+      </Button>
     </Box>
   );
 };

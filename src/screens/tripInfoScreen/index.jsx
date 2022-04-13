@@ -21,8 +21,6 @@ function TripInfoScreen() {
   const code = useSelector((state) => state.userAccount.code);
   const [data, setData] = useState([]);
 
-  console.log(data);
-
   useEffect(() => {
     const dateStr = getDateString(date, "-");
     statisticTripInfo({ code: code, dateStr: dateStr }).then((res) => {
