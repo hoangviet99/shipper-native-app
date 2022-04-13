@@ -115,5 +115,18 @@ export function createStyles() {
       fontWeight: 'bold',
       color: colorPalletter.lime[500],
     },
+    btnPrint: {
+      flexDirection: "row",
+      position: "absolute",
+      right: "10%",
+    },
+    textPrint: {
+      textDecorationLine: 'underline',
+      fontSize: 14,
+      color: colorPalletter.lime[600]
+    },
+    iconPrint: {
+      marginLeft: 4,
+    },
   });
 }

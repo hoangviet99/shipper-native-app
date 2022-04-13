@@ -1,15 +1,24 @@
-import React, { useMemo, useEffect, useState } from 'react';
-import { Box, Text, ScrollView, Pressable, Checkbox, useToast } from 'native-base';
-import { createStyles } from './style';
-import { getDetailOrder } from '@/services';
-import { useRoute, useNavigation } from '@react-navigation/core';
-import LoadingComponent from '@/components/Loading/index';
-import { changeStatus } from '@/services/changeStatus';
-import { SCREENS_NAME } from '@/constants/screen';
-import { useSelector, useDispatch } from 'react-redux';
-import { listOrderActions } from '@/store/listOrderReducer';
-import { CommonActions } from '@react-navigation/native';
-import { Linking } from 'react-native';
+import React, { useMemo, useEffect, useState } from "react";
+import {
+  Box,
+  Text,
+  ScrollView,
+  Pressable,
+  Checkbox,
+  useToast,
+} from "native-base";
+import { createStyles } from "./style";
+import { getDetailOrder } from "@/services";
+import { useRoute, useNavigation } from "@react-navigation/core";
+import LoadingComponent from "@/components/Loading/index";
+import { changeStatus } from "@/services/changeStatus";
+import { SCREENS_NAME } from "@/constants/screen";
+import { useSelector, useDispatch } from "react-redux";
+import { listOrderActions } from "@/store/listOrderReducer";
+import { CommonActions } from "@react-navigation/native";
+import { Linking } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import { getOrderInfoById } from "@/services/getOrderInfoById";
 
 //Chờ lấy
 const DetailWaitingForItScreen = () => {
@@ -33,11 +42,11 @@ const DetailWaitingForItScreen = () => {
   const handleChangeStatus = (id, status) => {
     changeStatus({ id: id, status: status, code: code })
       .then((res) => {
-        if (res?.data?.msg === 'Error') {
+        if (res?.data?.msg === "Error") {
           toast.show({
-            title: 'Đã có lỗi xảy ra !',
-            status: 'error',
-            placement: 'top',
+            title: "Đã có lỗi xảy ra !",
+            status: "error",
+            placement: "top",
             isClosable: true,
           });
           return;
@@ -45,13 +54,13 @@ const DetailWaitingForItScreen = () => {
 
         toast.show({
           baseStyle: {
-            display: 'flex',
-            flexWrap: 'wrap',
+            display: "flex",
+            flexWrap: "wrap",
             fontSize: 11,
           },
-          title: 'Cập nhật thành công !',
-          status: 'success',
-          placement: 'top',
+          title: "Cập nhật thành công !",
+          status: "success",
+          placement: "top",
           isClosable: true,
         });
 
@@ -59,7 +68,7 @@ const DetailWaitingForItScreen = () => {
           navigation.dispatch(
             CommonActions.navigate({
               name: SCREENS_NAME.HOME_NAVIGATOR,
-            }),
+            })
           );
           dispatch(listOrderActions.setIsReloadGettingDataCG(true));
         }, 2000);
@@ -95,6 +104,21 @@ const DetailWaitingForItScreen = () => {
     };
   }, [id, tab]);
 
+  const printOrderInfoHandle = (orderCode) => {
+    getOrderInfoById({ order: orderCode, code: code }).then((res) => {
+      if (res.ok) {
+        console.log(res.data);
+        // navigation.navigate({
+        //   name: SCREENS_NAME.DETAIL_ORDER_INFO,
+        //   params: {
+        //     orderInfo: res.data,
+        //   },
+        // });
+        dispatch(orderInfoActions.setResponseData(res.data));
+      }
+    });
+  };
+
   const renderListOrder = listShop?.map((item, idx) => {
     return (
       <Box key={idx} style={styles.orderItem}>
@@ -105,7 +129,7 @@ const DetailWaitingForItScreen = () => {
             size="sm"
             onPress={() => {
               if (orderID) {
-                setOrderID(orderID + '-' + item.DonHangID);
+                setOrderID(orderID + "-" + item.DonHangID);
                 return;
               }
 
@@ -114,8 +138,20 @@ const DetailWaitingForItScreen = () => {
           />
           <Text style={styles.orderItemTitle}>
             <Text style={styles.orderTitleBold}>{item.Ma} </Text>
-            {'-'} {item.TenKH}
+            {"-"} {item.TenKH}
           </Text>
+          <Pressable
+            onPress={() => printOrderInfoHandle(item.Ma)}
+            style={styles.btnPrint}
+          >
+            <Text style={styles.textPrint}>In phiếu</Text>
+            <Ionicons
+              style={styles.iconPrint}
+              name="print-outline"
+              color={"green"}
+              size={24}
+            />
+          </Pressable>
         </Box>
         <Text style={styles.orderItemAddress}>{item.DiaChiKH}</Text>
       </Box>
@@ -130,15 +166,19 @@ const DetailWaitingForItScreen = () => {
         <Box style={styles.container}>
           <ScrollView showsVerticalScrollIndicator={false}>
             <Box style={styles.sellerInfoSection}>
-              <Pressable onPress={() => Linking.openURL(`tel:${shopInfo?.DienThoai}`)}>
-                <Text style={styles.sellerInfoPhoneTxt}>{shopInfo?.DienThoai}</Text>
+              <Pressable
+                onPress={() => Linking.openURL(`tel:${shopInfo?.DienThoai}`)}
+              >
+                <Text style={styles.sellerInfoPhoneTxt}>
+                  {shopInfo?.DienThoai}
+                </Text>
               </Pressable>
               <Text style={styles.sellerInfoTitle}>
-                {'Người bán:'}
+                {"Người bán:"}
                 <Text style={styles.sellerInfoName}>{shopInfo?.TenShop}</Text>
               </Text>
               <Text style={styles.sellerInfoTitle}>
-                {'Địa chỉ: '}
+                {"Địa chỉ: "}
                 <Text style={styles.sellerInfoAddress}>{shopInfo?.DiaChi}</Text>
               </Text>
             </Box>
@@ -147,8 +187,8 @@ const DetailWaitingForItScreen = () => {
 
             <Box style={styles.orderStatusSection}>
               <Text style={styles.orderStatusTitle}>
-                {'Trạng thái: '}{' '}
-                <Text style={styles.orderStatusTitleBold}>{'CHỜ LẤY'}</Text>
+                {"Trạng thái: "}{" "}
+                <Text style={styles.orderStatusTitleBold}>{"CHỜ LẤY"}</Text>
               </Text>
             </Box>
           </ScrollView>
@@ -156,21 +196,21 @@ const DetailWaitingForItScreen = () => {
           <Box style={styles.btnGroupBottom}>
             <Box style={styles.btnGroupButtonTitle}>
               <Text style={styles.btnGroupButtonTitleInner}>
-                {'Chuyển trạng thái đơn hàng này sang'}
+                {"Chuyển trạng thái đơn hàng này sang"}
               </Text>
             </Box>
             <Box style={styles.btnGroupInner}>
               <Pressable style={styles.btnInner1}>
                 <Box style={styles.btnTextTitle}>
-                  <Text style={styles.btnTextTitleInner}>{''}</Text>
+                  <Text style={styles.btnTextTitleInner}>{""}</Text>
                 </Box>
               </Pressable>
               <Pressable
                 style={styles.btnInner2}
-                onPress={() => handleChangeStatus(orderID, 'CG')}
+                onPress={() => handleChangeStatus(orderID, "CG")}
               >
                 <Box style={styles.btnTextTitle}>
-                  <Text style={styles.btnTextTitleInner}>{'Chờ giao'}</Text>
+                  <Text style={styles.btnTextTitleInner}>{"Chờ giao"}</Text>
                 </Box>
               </Pressable>
             </Box>

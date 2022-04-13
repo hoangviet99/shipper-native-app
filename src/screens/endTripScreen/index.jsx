@@ -38,6 +38,14 @@ function EndTripScreen() {
   const toast = useToast();
   const navigation = useNavigation();
 
+  const inputTextChangedHandle = (value, index) => {
+    const newValue = value ? parseInt(value) : 0;
+    newData[index].amount = newValue;
+    setData(newData);
+    setTotalMoney(calTotalMoney());
+    forceUpdate();
+  };
+
   const btnPressHandle = (type, index) => {
     let newData = [];
     switch (type) {
@@ -72,7 +80,7 @@ function EndTripScreen() {
   };
 
   const handleSubmitButtonPressed = () => {
-    if(isDisableSubmitButton) return;
+    if (isDisableSubmitButton) return;
 
     setIsDisableSubmitButton(true);
     const filterData = data
@@ -93,9 +101,9 @@ function EndTripScreen() {
         isClosable: true,
       });
 
-      if(res.ok && res?.data?.result === "OK") {
+      if (res.ok && res?.data?.result === "OK") {
         setTimeout(() => {
-          navigation.navigate('Chờ giao');
+          navigation.navigate("Chờ giao");
         }, 1300);
       }
     });
@@ -112,6 +120,9 @@ function EndTripScreen() {
               amount={item.amount}
               btnDecsHandle={() => btnPressHandle("decrease", index)}
               btnIncsHandle={() => btnPressHandle("increase", index)}
+              onChangeTextHandle={(value) =>
+                inputTextChangedHandle(value, index)
+              }
             ></Banknote>
           );
         })}
