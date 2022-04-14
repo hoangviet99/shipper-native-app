@@ -4198,6 +4198,13 @@ expo-modules-core@~0.4.7:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
+expo-print@~10.2.1:
+  version "10.2.1"
+  resolved "https://registry.yarnpkg.com/expo-print/-/expo-print-10.2.1.tgz#007b32aa8d02efa0b96e8d930d66002160161845"
+  integrity sha512-StLZI95srt9fbRFBWwZpvAUvCVOxHwFHP4I3q6ACxl2i81AQaNUK9soXsL7z+5gugOl9VLV3p/vCw23t6eAvBw==
+  dependencies:
+    expo-modules-core "~0.2.0"
+
 expo-secure-store@0.2.0:
   version "11.1.1"
   resolved "https://registry.yarnpkg.com/expo-secure-store/-/expo-secure-store-11.1.1.tgz#16f727f56f5b0eef9817fc0d64d79be26f8a34a8"

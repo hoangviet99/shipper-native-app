@@ -39,6 +39,7 @@ function EndTripScreen() {
   const navigation = useNavigation();
 
   const inputTextChangedHandle = (value, index) => {
+    let newData = data;
     const newValue = value ? parseInt(value) : 0;
     newData[index].amount = newValue;
     setData(newData);

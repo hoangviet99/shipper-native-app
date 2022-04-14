@@ -123,7 +123,7 @@ export function createStyles() {
     textPrint: {
       textDecorationLine: 'underline',
       fontSize: 14,
-      color: colorPalletter.lime[600]
+      color: "darkorange"
     },
     iconPrint: {
       marginLeft: 4,

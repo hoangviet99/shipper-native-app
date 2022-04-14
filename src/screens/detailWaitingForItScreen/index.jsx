@@ -19,6 +19,8 @@ import { CommonActions } from "@react-navigation/native";
 import { Linking } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { getOrderInfoById } from "@/services/getOrderInfoById";
+import { printMobile } from "@/services/printMobile/index";
+import PrintOrderInfomation from "@/helper/printeMobile";
 
 //Chờ lấy
 const DetailWaitingForItScreen = () => {
@@ -105,16 +107,16 @@ const DetailWaitingForItScreen = () => {
   }, [id, tab]);
 
   const printOrderInfoHandle = (orderCode) => {
-    getOrderInfoById({ order: orderCode, code: code }).then((res) => {
+    printMobile({ order: orderCode, code: code }).then((res) => {
       if (res.ok) {
-        console.log(res.data);
-        // navigation.navigate({
-        //   name: SCREENS_NAME.DETAIL_ORDER_INFO,
-        //   params: {
-        //     orderInfo: res.data,
-        //   },
-        // });
-        dispatch(orderInfoActions.setResponseData(res.data));
+        PrintOrderInfomation(res.data);
+      } else {
+        toast.show({
+          title: "Đã có lỗi xảy ra !",
+          status: "error",
+          placement: "top",
+          isClosable: true,
+        });
       }
     });
   };
@@ -148,7 +150,7 @@ const DetailWaitingForItScreen = () => {
             <Ionicons
               style={styles.iconPrint}
               name="print-outline"
-              color={"green"}
+              color={"darkorange"}
               size={24}
             />
           </Pressable>
