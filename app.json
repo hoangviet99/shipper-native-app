@@ -4,12 +4,14 @@
   "expo": {
     "name": "shipper",
     "slug": "shipper",
+    "version": "2.0.0",
+    "icon": "./src/assets/images/dev_ship_icon.png",
     "splash": {
       "image": "./src/assets/images/dev_ship.png",
       "resizeMode": "cover"
     },
     "android": {
-      "versionCode": 6,
+      "versionCode": 7,
       "package": "com.phv.devship",
       "googleServicesFile": "./src/assets/firebase/google-services.json"
     }
