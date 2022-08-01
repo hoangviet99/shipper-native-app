@@ -209,10 +209,10 @@ const DetailWaitingForItScreen = () => {
               </Pressable>
               <Pressable
                 style={styles.btnInner2}
-                onPress={() => handleChangeStatus(orderID, "CG")}
+                onPress={() => handleChangeStatus(orderID, "DL")}
               >
                 <Box style={styles.btnTextTitle}>
-                  <Text style={styles.btnTextTitleInner}>{"Chờ giao"}</Text>
+                  <Text style={styles.btnTextTitleInner}>{"Đã lấy"}</Text>
                 </Box>
               </Pressable>
             </Box>
