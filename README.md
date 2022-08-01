@@ -5,7 +5,7 @@ The official NativeBase template for [Expo](https://docs.expo.io/)
 ## Usage
 
 ```sh
-npm install
-expo install expo-barcode-scanner
+npm install -g expo-cli
+npm install --legacy-peer-deps
 expo start
 ```
